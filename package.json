@@ -1,0 +1,14 @@
+{
+  "name": "time-analysis",
+  "version": "1.0.0",
+  "description": "Analysis of raw time usage data",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Peter Riegersperger",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.11.13"
+  }
+}
