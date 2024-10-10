@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Analysis of raw time usage data",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "test"
   },
