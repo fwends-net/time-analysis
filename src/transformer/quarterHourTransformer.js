@@ -15,19 +15,22 @@ import {COL_START,COL_END}  from '../common/constants.js';
  * @returns 
  */
 export function transform(input) {
-  let out = [...input];
+  let out = [];
 
 
-  for (let i=0; i < out.length; i++) {
-    const newStart = round(out[i][COL_START]);
-    const newEnd = round(out[i][COL_END]);
-    if (newStart === newEnd) {
+  for (let i=0; i < input.length; i++) {
+    const newStart = round(input[i][COL_START]);
+    const newEnd = round(input[i][COL_END]);
+    if (newStart !== newEnd) {
       //if start and end are the same, the activity cannot fill at least one time bucket and will
       //therefore be removed. this will happen to time entries that are less than 15 minutes long.
-      out.splice(i,1);
-    } else {
-      out[i][COL_START] = newStart;
-      out[i][COL_END] = newEnd;  
+      //console.log('Removing entry with 0 duration after rounding');
+      //out.splice(i,1);
+      let temp = [...input[i]];
+      temp[COL_START] = newStart;
+      temp[COL_END] = newEnd;  
+      out.push(temp);
+   
     }
   }
 
@@ -57,7 +60,7 @@ function round(date) {
   else if (minute > 52) {
     val = 60;
   }
-
+  console.log('Round result: %s becomes %s', minute, val);
   return dayjs(date).set('minute', val).format('YYYY-MM-DD HH:mm');
 
 }

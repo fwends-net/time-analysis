@@ -5,6 +5,7 @@ import {transform as sortTransform} from '../transformer/sortTransformer.js';
 import { transform as gapFillTransform } from '../transformer/gapFillTransformer.js';
 import {transform as labelGroupTransform} from '../transformer/labelGroupTransformer.js';
 import {transform as quarterHourTransform} from '../transformer/quarterHourTransformer.js';
+import { buildOutput } from '../output/htmlBuilder.js';
 export async function parse() {
   // Step 1: List all the files that we have
   let files = await listFiles();
@@ -25,15 +26,18 @@ export async function parse() {
   }
   console.log('Found a total of %s time entries in %s files.', timeEntries.length, files.length);
   let cleanData = daySplitTransform(timeEntries); //this needs to happen
-  cleanData = gapFillTransform(cleanData); //this needs to happen
   cleanData = sortTransform(cleanData); //this needs to happen
+  cleanData = gapFillTransform(cleanData); //this needs to happen
   cleanData = labelGroupTransform(cleanData); //this can happen
   cleanData = quarterHourTransform(cleanData);
-  
+  /*
   for (let i=0; i < cleanData.length; i++) {
     console.log(cleanData[i]);
   }
-  
+    */
+   console.log('Writing output.');
+   await buildOutput(cleanData);
+  console.log('Done.');
 }
 
 /**

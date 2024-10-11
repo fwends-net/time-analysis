@@ -1,4 +1,4 @@
-export const INPATH  = './demo-data/';
+export const INPATH  = './data/';
 export const OUTFILE ='./output/report.html';
 
 export const COL_LABEL = 0;
