@@ -1,4 +1,4 @@
-let head = '<html><head><link rel="stylesheet" href="style.css"></head><body>';
+let head = '<html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head><body>';
 let footer = '</body></html>';
 
 import { writeFile } from './filewriter.js';
