@@ -1,14 +1,22 @@
-let head = '<html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head><body>';
+let head_start = '<html><head><meta charset="utf-8">';
+let head_end = '</head><body>';
 let footer = '</body></html>';
 
 import { writeFile } from './filewriter.js';
 import { COL_LABEL, COL_TEXT, COL_START, COL_END } from '../common/constants.js';
 import dayjs from 'dayjs';
+import { buildStyles, getDefaultStyles } from './styles.js';
 
 export async function buildOutput(input) {
   let out = '';
 
-  out += head;
+  out += head_start;
+  out += "<style>";
+  out += buildStyles(input);
+  out += getDefaultStyles();
+  out += "</style>";
+  out += head_end;
+
 
   out += '<table><tbody><tr>';
   
