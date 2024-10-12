@@ -6,6 +6,7 @@ import { transform as gapFillTransform } from '../transformer/gapFillTransformer
 import {transform as labelGroupTransform} from '../transformer/labelGroupTransformer.js';
 import {transform as quarterHourTransform} from '../transformer/quarterHourTransformer.js';
 import { buildOutput } from '../output/htmlBuilder.js';
+import { buildStyles } from '../output/styles.js';
 export async function parse() {
   // Step 1: List all the files that we have
   let files = await listFiles();
@@ -37,6 +38,7 @@ export async function parse() {
     */
    console.log('Writing output.');
    await buildOutput(cleanData);
+   buildStyles(cleanData);
   console.log('Done.');
 }
 
