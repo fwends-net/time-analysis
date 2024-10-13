@@ -75,7 +75,11 @@ function splitContent(input, value_delimiter = ',') {
   let raw_data = input.split('\n');
   let data = [];
   for (let i =0; i < raw_data.length; i++) {
-    data.push(splitLine(raw_data[i], value_delimiter));
+    if (raw_data[i].startsWith('#')) {
+      console.log('Ignoring line %s because it is commented out.', i);
+    } else {
+      data.push(splitLine(raw_data[i], value_delimiter));
+    }
   }
   return data;
 }
