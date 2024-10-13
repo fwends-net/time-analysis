@@ -6,7 +6,7 @@ import { writeFile } from './filewriter.js';
 import { COL_LABEL, COL_TEXT, COL_START, COL_END } from '../common/constants.js';
 import dayjs from 'dayjs';
 import { buildStyles, getDefaultStyles } from './styles.js';
-
+import config from '../common/config.js';
 export async function buildOutput(input) {
   let out = '';
 
@@ -21,17 +21,19 @@ export async function buildOutput(input) {
   out += '<table><tbody><tr>';
   
   let day = dayjs(input[0][COL_START]);
-  out += '<h2>' + day.format('YYYY-MM-DD') + '</h2>';
   out += startDay();
+  out += '<td><h2>' + day.format('YYYY-MM-DD') + '</h2></td><td><table><tbody><tr>';
+  
 
   for (let i=0; i < input.length; i++) {
     if (!dayjs(input[i][COL_START]).isSame(day, 'day')) {
       out +=endDay();
       day = dayjs(input[i][COL_START]);
-      out += '<h2>' + day.format('YYYY-MM-DD') + '</h2>';
       out+=startDay();
+      out += '<td><h2>' + day.format('YYYY-MM-DD') + '</h2></td><td><table><tbody><tr>';
+      
     }
-    out += buildEntry(input[i]);
+    out += buildEntry(input[i], i);
   }
   out += endDay();
 
@@ -48,12 +50,13 @@ function startDay() {
   return '<table><tbody><tr>';
 }
 function endDay() {
-  return '</tr></tbody></table>';
+  return '</tr></tbody></table></tr></tbody></table>';
 }
 
 
-function buildEntry(entry) {
-  return '<td class="' + entry[COL_LABEL] + '" title="' + buildTitle(entry) +  '">' + '</td>';
+function buildEntry(entry, count) {
+  const text = config.debug_mode ?  dayjs(entry[COL_START]).format('HH:mm') + '-' + dayjs(entry[COL_END]).format('HH:mm') + ' (' + count +')' : '';
+  return '<td class="' + entry[COL_LABEL] + '" title="' + buildTitle(entry) +  '">' + text + '</td>';
 }
 
 function buildTitle(entry) {
