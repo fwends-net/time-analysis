@@ -31,7 +31,7 @@ export function transform(input) {
 
     let diff = currentStart.diff(prevEnd, "minute");
 
-    if (diff > 1) {
+    if (diff > 0) {
       console.log(
         "Time difference between %s and %s. Inserting gap fill.",
         prevEnd,

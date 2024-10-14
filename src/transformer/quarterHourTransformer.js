@@ -51,6 +51,7 @@ function roundTimeBoundaries(input) {
   for (let i = 0; i < input.length; i++) {
     const newStart = round(input[i][COL_START]);
     const newEnd = round(input[i][COL_END]);
+    
     if (newStart !== newEnd) {
       //if start and end are the same, the activity cannot fill at least one time bucket and will
       //therefore be removed. this will happen to time entries that are less than 15 minutes long.
@@ -65,6 +66,7 @@ function roundTimeBoundaries(input) {
 
   return out;
 }
+
 
 /**
  * Rounds the date to the nearest quarter hour (0, 15, 30, 45)
@@ -82,31 +84,8 @@ function round(date) {
     val = 30;
   } else if (minute < 53) {
     val = 45;
-  } else if (minute > 52) {
+  } else {
     val = 60;
   }
-  console.log("Round result: %s becomes %s", minute, val);
   return dayjs(date).set("minute", val).format("YYYY-MM-DD HH:mm");
 }
-/*
-this is likely not needed at all.
-function createTimeBuckets(day) {
-  let buckets = [];
-
-  const startOfDay = dayjs(day).set('hour',0).set('minute',0).set('second',0);
-  const endOfDay = dayjs(day).set('hour',23).set('minute',59).set('second',59);
-  console.log('JEY');
-  console.log(day);
-  let currTime = startOfDay;
-  console.log(startOfDay.format('YYYY-MM-DD HH:mm'));
-  console.log(endOfDay.format('YYYY-MM-DD HH:mm'));
-  while (currTime.isBefore(endOfDay)) {
-    console.log('yes');
-    let bucketEnd = currTime.add(15, 'minutes');
-    buckets.push([currTime.format('YYYY-MM-DD HH:mm'), bucketEnd.format('YYYY-MM-DD HH:mm')]);
-    currTime = bucketEnd;
-  }
-  console.log(buckets.length);
-  return buckets;
-
-}*/
