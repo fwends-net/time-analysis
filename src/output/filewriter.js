@@ -6,7 +6,7 @@ export async function writeFile(content) {
   try {
     await fs.writeFile(filepath, content);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
