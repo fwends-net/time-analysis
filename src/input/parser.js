@@ -1,10 +1,11 @@
 
 import { listFiles, loadFile } from './filereader.js';
-import {transform as daySplitTransform} from '../transformer/daySplitTransformer.js';
-import {transform as sortTransform} from '../transformer/sortTransformer.js';
+import { transform as daySplitTransform } from '../transformer/daySplitTransformer.js';
+import { transform as truncateSecondsTransform } from '../transformer/granularityTransformer.js';
+import { transform as sortTransform } from '../transformer/sortTransformer.js';
 import { transform as gapFillTransform } from '../transformer/gapFillTransformer.js';
-import {transform as labelGroupTransform} from '../transformer/labelGroupTransformer.js';
-import {transform as quarterHourTransform} from '../transformer/quarterHourTransformer.js';
+import { transform as labelGroupTransform } from '../transformer/labelGroupTransformer.js';
+import { transform as quarterHourTransform } from '../transformer/quarterHourTransformer.js';
 import { buildOutput } from '../output/htmlBuilder.js';
 import { buildStyles } from '../output/styles.js';
 
@@ -26,6 +27,7 @@ export async function parse() {
   console.log('Found a total of %s time entries in %s files.', timeEntries.length, files.length);
   let cleanData = daySplitTransform(timeEntries); //this needs to happen
   cleanData = sortTransform(cleanData); //this needs to happen
+  cleanData = truncateSecondsTransform(cleanData); //this needs to happen
 
   if (! hasValidLength(cleanData)) {
     console.error("Aborting with length error. Please fix your input data.");
