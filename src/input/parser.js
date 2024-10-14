@@ -20,11 +20,11 @@ export async function parse() {
   let timeEntries = [];
   //Step 2: iterate over those files and get their contents.
   for (let i = 0; i < files.length; i++ ) {
-    console.log('Loading file %s/%s', i+1, files.length);
+    console.debug('Loading file %s/%s', i+1, files.length);
     let contents = await loadFile(files[i]);
     timeEntries = timeEntries.concat(contents);
   }
-  console.log('Found a total of %s time entries in %s files.', timeEntries.length, files.length);
+  console.debug('Found a total of %s time entries in %s files.', timeEntries.length, files.length);
   let cleanData = daySplitTransform(timeEntries); //this needs to happen
   cleanData = sortTransform(cleanData); //this needs to happen
   cleanData = truncateSecondsTransform(cleanData); //this needs to happen
@@ -54,9 +54,9 @@ export async function parse() {
     console.log(cleanData[i]);
   }
     */
-   console.log('Writing output.');
+   console.debug('Writing output.');
    await buildOutput(cleanData);
    buildStyles(cleanData);
-  console.log('Done.');
+  console.debug('Done.');
 }
 

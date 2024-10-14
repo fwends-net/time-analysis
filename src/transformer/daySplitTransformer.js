@@ -21,7 +21,7 @@ export function transform(input) {
     let end = dayjs(temp[i][COL_END]);
 
     if (!start.isSame(end, "day")) {
-      console.log("Entry is starts and ends on different days. Will split");
+      console.debug("Entry is starts and ends on different days. Will split");
       let e1 = [...entry];
       let e2 = [...entry];
 
