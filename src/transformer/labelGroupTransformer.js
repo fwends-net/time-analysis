@@ -23,9 +23,12 @@ export function transform(input) {
       // we only update the end time, merging the two entries into one
       // also, we only merge if they are on the same day.
       if (out[out.length-1][COL_LABEL] === input[i][COL_LABEL] && isSameDay(out[out.length-1], input[i])) {
-        console.debug('Adding new end time to existing label group');
+        console.debug('Adding new end time to existing label group %s', input[i][COL_LABEL]);
+        console.debug('New entry:');
+        console.debug(input[i]);
         out[out.length-1][COL_END] = input[i][COL_END];
-        out[out.length-1][COL_TEXT] += ';' + input[i][COL_TEXT]; 
+        out[out.length-1][COL_TEXT] += '. ' + input[i][COL_TEXT]; 
+        console.debug('done');
       } else {
         out.push([...input[i]]);
       }
@@ -33,7 +36,7 @@ export function transform(input) {
       out.push([...input[i]]);
     }
   }
-
+  console.debug('Loop in label group transformer done.');
   return out;
 }
 
