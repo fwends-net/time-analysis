@@ -12,7 +12,7 @@ import { buildStyles } from '../output/styles.js';
 import { isValid as hasNoOverlap} from '../verify/overlapVerifier.js';
 import { isValid as hasCorrectStartEndSequence } from '../verify/startEndVerifier.js';
 import { isValid as hasValidLength } from '../verify/lengthVerifier.js';
-
+import { isValid as hasValidDates } from '../verify/dateVerifier.js';
 
 export async function parse() {
   // Step 1: List all the files that we have
@@ -20,20 +20,27 @@ export async function parse() {
   let timeEntries = [];
   //Step 2: iterate over those files and get their contents.
   for (let i = 0; i < files.length; i++ ) {
-    console.debug('Loading file %s/%s', i+1, files.length);
+    console.log('Loading file %s [%s/%s]', files[i], i+1, files.length);
     let contents = await loadFile(files[i]);
     timeEntries = timeEntries.concat(contents);
   }
+
+  if (! hasValidLength(timeEntries)) {
+    console.error("Aborting with length error. Please fix your input data.");
+    process.exit(1);
+  }
+
+  if (! hasValidDates(timeEntries)) {
+    console.error("Aborting with date validity error .Please fix your input data.");
+    process.exit(1);
+  }
+
+
   console.debug('Found a total of %s time entries in %s files.', timeEntries.length, files.length);
   let cleanData = daySplitTransform(timeEntries); //this needs to happen
   cleanData = sortTransform(cleanData); //this needs to happen
   cleanData = truncateSecondsTransform(cleanData); //this needs to happen
 
-  if (! hasValidLength(cleanData)) {
-    console.error("Aborting with length error. Please fix your input data.");
-    process.exit(1);
-
-  }
 
   if (! hasCorrectStartEndSequence(cleanData)) {
     console.error("Aborting with start/end sequence error. Please fix your input data.");
