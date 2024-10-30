@@ -56,6 +56,7 @@ export async function parse() {
   cleanData = gapFillTransform(cleanData); //this needs to happen
   cleanData = labelGroupTransform(cleanData); //this can happen
   cleanData = quarterHourTransform(cleanData);
+  cleanData = sortTransform(cleanData); //this needs to happen
   /*
   for (let i=0; i < cleanData.length; i++) {
     console.log(cleanData[i]);
