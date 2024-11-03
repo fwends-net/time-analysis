@@ -4,7 +4,7 @@
 
 
 const config = {
-  debug_mode: true,
+  debug_mode: false,
 }
 
 export default config;
