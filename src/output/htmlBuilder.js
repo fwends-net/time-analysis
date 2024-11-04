@@ -1,17 +1,15 @@
-let head_start = '<html><head><meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1" />';
-let head_end = '</head><body>';
-let footer = '</body></html>';
-
-import { COL_LABEL, COL_TEXT, COL_START, COL_END } from '../common/constants.js';
-
-import { buildStyles } from './styles.js';
-
-import { writeFile } from './filewriter.js';
-
 import dayjs from 'dayjs';
+import { COL_LABEL, COL_TEXT, COL_START, COL_END } from '../common/constants.js';
+import { buildStyles } from './styles.js';
+import { writeFile } from './filewriter.js';
 import config from '../common/config.js';
 import { getDayBreakdown } from './dayBreakdownBuilder.js';
 import { getDayTimeline } from './dayTimelineBuilder.js';
+
+
+let head_start = '<html><head><meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1" />';
+let head_end = '</head><body>';
+let footer = '</body></html>';
 
 /**
  * splits the input array into an array of arrays, by days.
