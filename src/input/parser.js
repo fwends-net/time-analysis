@@ -14,6 +14,9 @@ import { isValid as hasCorrectStartEndSequence } from '../verify/startEndVerifie
 import { isValid as hasValidLength } from '../verify/lengthVerifier.js';
 import { isValid as hasValidDates } from '../verify/dateVerifier.js';
 
+import { splitDays } from '../output/htmlBuilder.js';
+
+
 export async function parse() {
   // Step 1: List all the files that we have
   let files = await listFiles();
@@ -66,5 +69,6 @@ export async function parse() {
    await buildOutput(cleanData);
    buildStyles(cleanData);
   console.debug('Done.');
+  splitDays(cleanData);
 }
 
