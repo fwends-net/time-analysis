@@ -8,7 +8,7 @@
     "test": "test"
   },
   "author": "Peter Riegersperger",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "dayjs": "^1.11.13"
   }
