@@ -1,5 +1,5 @@
-export const INPATH  = './data/';
-export const OUTFILE ='./output/report.html';
+export const INPATH  = './demo-data-timefill/';
+export const OUTFILE ='./output/report_missing.html';
 
 export const COL_LABEL = 0;
 export const COL_TEXT = 1;
