@@ -5,6 +5,15 @@ import dayjs from "dayjs";
  * This method checks if an entry has a valid start date and a valid end date.
  * It also tries to fix a missing date if possible.
  * 
+ * TODO this is not a good implementation because it creates a side effect,
+ * manipulating the input array.
+ * 
+ * It will do for now, but we need to find a different way to perform the modification
+ * before the test is happening.
+ * 
+ * (It might also be ok for the verifier to give its ok to the dates if the modification
+ * of input could be performed, but it is up to a different function to actually do it)
+ * 
  * @param {*} input 
  * @returns 
  */
@@ -57,9 +66,13 @@ export function isValid(input) {
 }
 
 
-
+/**
+ * Returns true if the date can be formatted into YYYY-MM-DD HH:mm
+ * 
+ * @param {*} date 
+ * @returns 
+ */
 function validDate(date) {
-  console.log(date.format("YYYY-MM-DD HH:mm"));
   if ( date.format("YYYY-MM-DD HH:mm") === 'Invalid Date') {
     return false;
   }
