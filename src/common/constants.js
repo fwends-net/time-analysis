@@ -1,4 +1,4 @@
-export const INPATH  = './demo-data-timefill/';
+export const INPATH  = './demo-data/';
 export const OUTFILE ='./output/report_missing.html';
 
 export const COL_LABEL = 0;
